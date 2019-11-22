@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductDescriptionFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/tv_product_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textColor="#000000"
+        android:text="Phone 5s is purposefully imagined. Meticulously considered. Precision crafted. It’s not just a product of what’s technologically possible. But what’s technologically useful. It’s not just what’s next. But what should be next. It's set a precedent, with an amazing amount of technology in a remarkably thin, light design. iPhone 5s builds on that achievement with Touch ID, a ﬁngerprint identity sensor. An A7 chip with 64-bit architecture. An even more impressive iSight camera. And ultrafast LTE wireless. iPhone 5s is the first 64‑bit smartphone in the world. And iOS 7 was designed with that in mind, built specifically for 64‑bit architecture. Which makes iOS 7 just as advanced as the iPhone it’s on. iPhone 5s has up to 13 LTE bands. That’s more than any other single model of smartphone." />
+
+</FrameLayout>

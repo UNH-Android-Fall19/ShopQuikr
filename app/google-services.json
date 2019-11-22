@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "178839285772",
+    "firebase_url": "https://shopquikr-594bd.firebaseio.com",
+    "project_id": "shopquikr-594bd",
+    "storage_bucket": "shopquikr-594bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178839285772:android:d4561e630501c2ffa67e29",
+        "android_client_info": {
+          "package_name": "com.example.shopquikr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178839285772-le4jv5mv0ice6b45808c2s068havcvqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGV2QRydYQcrlHV-4jYjX2Yz34ANY1TZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178839285772-le4jv5mv0ice6b45808c2s068havcvqb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,39 +1,29 @@
 package com.example.shopquikr.ui.home;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import com.example.shopquikr.CategoryAdapter;
-import com.example.shopquikr.CategoryModel;
-import com.example.shopquikr.GridProductLayoutAdapter;
-import com.example.shopquikr.HomePageAdapter;
-import com.example.shopquikr.HomePageModel;
-import com.example.shopquikr.HorizontalProductScrollAdapter;
-import com.example.shopquikr.HorizontalProductScrollModel;
+import com.example.shopquikr.Controller.CategoryAdapter;
+import com.example.shopquikr.Controller.HomePageAdapter;
+import com.example.shopquikr.Model.HomePageModel;
 import com.example.shopquikr.R;
-import com.example.shopquikr.SliderAdapter;
-import com.example.shopquikr.SliderModel;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import static com.example.shopquikr.DAO.DBQueries.categoryModelList;
+
+import static com.example.shopquikr.DAO.DBQueries.lists;
+import static com.example.shopquikr.DAO.DBQueries.loadCategories;
+import static com.example.shopquikr.DAO.DBQueries.loadFragmentData;
+import static com.example.shopquikr.DAO.DBQueries.loadedCategoriesNames;
+
 
 public class HomeFragment extends Fragment {
 
@@ -42,11 +32,15 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
-    private RecyclerView testing;
+    private RecyclerView homePageRecylcerView;
+    private HomePageAdapter adapter;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         categoryRecyclerView = view.findViewById(R.id.catergory_recyclerview);
@@ -54,64 +48,33 @@ public class HomeFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecyclerView.setLayoutManager(layoutManager);
 
-        final List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
-        categoryModelList.add(new CategoryModel("link", "Home"));
-        categoryModelList.add(new CategoryModel("link", "Electronics"));
-        categoryModelList.add(new CategoryModel("link", "Appliances"));
-        categoryModelList.add(new CategoryModel("link", "Furniture"));
-        categoryModelList.add(new CategoryModel("link", "Fashion"));
-        categoryModelList.add(new CategoryModel("link", "Toys"));
-        categoryModelList.add(new CategoryModel("link", "Arts"));
-        categoryModelList.add(new CategoryModel("link", "Books"));
-        categoryModelList.add(new CategoryModel("link", "Shoes"));
-
         categoryAdapter = new CategoryAdapter(categoryModelList);
         categoryRecyclerView.setAdapter(categoryAdapter);
-        categoryAdapter.notifyDataSetChanged();
 
-        // Banner Slider Starts
-
-        List<SliderModel> sliderModelList = new ArrayList<SliderModel>();
-        sliderModelList.add(new SliderModel(R.drawable.image2, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.image2, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.image2, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.image2, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.image2, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.image2, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.image2, "#077AE4"));
-        sliderModelList.add(new SliderModel(R.drawable.image2, "#077AE4"));
-
-        // Banner Slider Ends
-
-        //Horizontal Product layout starts
-        List<HorizontalProductScrollModel> horizontalProductScrollModelList = new ArrayList<>();
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "iPhone 5", "Brand New", "299$"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "iPhone 5", "Brand New", "299$"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "iPhone 5", "Brand New", "299$"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "iPhone 5", "Brand New", "299$"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "iPhone 5", "Brand New", "299$"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "iPhone 5", "Brand New", "299$"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "iPhone 5", "Brand New", "299$"));
-        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.image2, "iPhone 5", "Brand New", "299$"));
-        //Horizontal Product layout ends
-
+        if (categoryModelList.size() == 0){
+            loadCategories(categoryAdapter,getContext());
+        }else{
+            categoryAdapter.notifyDataSetChanged();
+        }
 
         // Recycler View Testing Starts
-        testing = view.findViewById(R.id.home_page_recyclerview);
-
+        homePageRecylcerView = view.findViewById(R.id.home_page_recyclerview);
         LinearLayoutManager testingLayoutManager = new LinearLayoutManager(getContext());
         testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        testing.setLayoutManager(testingLayoutManager);
+        homePageRecylcerView.setLayoutManager(testingLayoutManager);
 
-        List<HomePageModel> homePageModelList = new ArrayList<>();
-        homePageModelList.add(new HomePageModel(0, sliderModelList));
-        homePageModelList.add(new HomePageModel(1, R.mipmap.banner, "#000000"));
-        homePageModelList.add(new HomePageModel(2, "Deals of the Day!", horizontalProductScrollModelList));
-        homePageModelList.add(new HomePageModel(3, "Deals of the Day!", horizontalProductScrollModelList));
+        if (lists.size() == 0){
+            loadedCategoriesNames.add("HOME");
+            lists.add(new ArrayList<HomePageModel>());
+            adapter = new HomePageAdapter(lists.get(0));
+            loadFragmentData(adapter,getContext(),0,"Home");
+        }else{
+            adapter = new HomePageAdapter(lists.get(0));
+            adapter.notifyDataSetChanged();
+        }
 
-        HomePageAdapter adapter = new HomePageAdapter(homePageModelList);
-        testing.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+        homePageRecylcerView.setAdapter(adapter);
         // Recycler View Testing Ends
 
         return view;

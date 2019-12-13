@@ -6,6 +6,7 @@
         android:icon="@mipmap/search"
         android:orderInCategory="100"
         android:title="search"
+        android:visible="false"
         app:showAsAction="always" />
     <item
         android:id="@+id/main_notification_icon"

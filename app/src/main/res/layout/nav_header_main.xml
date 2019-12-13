@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Not Signed In"
+        android:text="John Sidik"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toTopOf="@+id/main_email"
         app:layout_constraintStart_toStartOf="parent" />
@@ -36,7 +36,7 @@
         android:id="@+id/main_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email Address"
+        android:text="john@gmail.com"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

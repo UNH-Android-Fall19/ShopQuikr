@@ -29,6 +29,7 @@ public class ProductSpecificationAdapter extends RecyclerView.Adapter<ProductSpe
 
     @Override
     public int getItemViewType(int position) {
+        // Differentiate between title and body
         switch (productSpecificationModelList.get(position).getType()) {
             case 0:
                 return ProductSpecificationModel.SPECIFICATION_TITLE;
@@ -42,13 +43,13 @@ public class ProductSpecificationAdapter extends RecyclerView.Adapter<ProductSpe
     @NonNull
     @Override
     public ProductSpecificationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-
+        // Differentiate between specification and title
         switch (viewType) {
             case ProductSpecificationModel.SPECIFICATION_TITLE:
                 TextView title = new TextView(viewGroup.getContext());
                 title.setTypeface(null, Typeface.BOLD);
                 title.setTextColor(Color.parseColor("#000000"));
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(setDp(16, viewGroup.getContext()),
                         setDp(16, viewGroup.getContext()),
                         setDp(16, viewGroup.getContext()),

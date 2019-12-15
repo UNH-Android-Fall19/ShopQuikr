@@ -35,11 +35,11 @@ public class ViewAllActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(getIntent().getStringExtra("title"));
-
+        // Recylcer View Starts
         recyclerView = findViewById(R.id.recycler_view);
         gridView = findViewById(R.id.grid_view);
 
-        int layout_code = getIntent().getIntExtra("layout_code",-1);
+        int layout_code = getIntent().getIntExtra("layout_code", -1);
 
         if (layout_code == 0) {
             recyclerView.setVisibility(View.VISIBLE);
@@ -50,22 +50,19 @@ public class ViewAllActivity extends AppCompatActivity {
             WishListAdapter adapter = new WishListAdapter(wishListModelList, false);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-        }else if(layout_code == 1) {
+        } else if (layout_code == 1) {
             gridView.setVisibility(View.VISIBLE);
-
-
-
             GridProductLayoutAdapter gridProductLayoutAdapter = new GridProductLayoutAdapter(horizontalProductScrollModelList);
             gridView.setAdapter(gridProductLayoutAdapter);
         }
-
+        // Recylcer View Ends
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             finish();
             return true;
         }

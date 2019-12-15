@@ -36,23 +36,21 @@ public class MyWishListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_wish_list, container, false);
+        // Recycler view starts
         wishListRecyclerView = view.findViewById(R.id.my_wishlist_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         wishListRecyclerView.setLayoutManager(linearLayoutManager);
 
-if(DBQueries.wishListModelList.size() == 0){
-    DBQueries.wishList.clear();
-    DBQueries.loadWishList(getContext(),true);
-}
+        if (DBQueries.wishListModelList.size() == 0) {
+            DBQueries.wishList.clear();
+            DBQueries.loadWishList(getContext(), true);
+        }
 
 
-        WishListAdapter wishListAdapter = new WishListAdapter(DBQueries.wishListModelList, true);
+        wishListAdapter = new WishListAdapter(DBQueries.wishListModelList, true);
         wishListRecyclerView.setAdapter(wishListAdapter);
         wishListAdapter.notifyDataSetChanged();
-
-
-
 
 
         return view;

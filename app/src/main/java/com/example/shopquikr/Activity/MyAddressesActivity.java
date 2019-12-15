@@ -36,7 +36,7 @@ public class MyAddressesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("My Addresses");
-
+        // Address View starts
         myAddressesRecyclerView = findViewById(R.id.addresses_recyclerview);
         deliverHereBtn = findViewById(R.id.deliver_here_btn);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -45,22 +45,20 @@ public class MyAddressesActivity extends AppCompatActivity {
 
         List<AddressesModel> addressesModelList = new ArrayList<>();
         addressesModelList.add(new AddressesModel("John Siddik", "12F West Haven", "06516", true));
-        addressesModelList.add(new AddressesModel("John Siddik", "12F West Haven", "06516", false));
-        addressesModelList.add(new AddressesModel("John Siddik", "12F West Haven", "06516", false));
-
-        int mode = getIntent().getIntExtra("mode",-1);
-        if(mode == SELECT_ADDRESS){
+        // Address View ends
+        int mode = getIntent().getIntExtra("mode", -1);
+        if (mode == SELECT_ADDRESS) {
             deliverHereBtn.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             deliverHereBtn.setVisibility(View.GONE);
         }
         addressesAdapter = new AddressesAdapter(addressesModelList, mode);
         myAddressesRecyclerView.setAdapter(addressesAdapter);
-        ((SimpleItemAnimator)myAddressesRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        ((SimpleItemAnimator) myAddressesRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         addressesAdapter.notifyDataSetChanged();
     }
 
-    public static void refreshItem(int deselect, int select){
+    public static void refreshItem(int deselect, int select) {
         addressesAdapter.notifyItemChanged(deselect);
         addressesAdapter.notifyItemChanged(select);
     }
@@ -70,7 +68,7 @@ public class MyAddressesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             finish();
             return true;
         }

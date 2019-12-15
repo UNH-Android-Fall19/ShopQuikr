@@ -34,10 +34,10 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyOrderAdapter.ViewHolder holder, int position) {
-        int resource =myOrderItemModelList.get(position).getProductImage();
+        int resource = myOrderItemModelList.get(position).getProductImage();
         int rating = myOrderItemModelList.get(position).getRating();
         String title = myOrderItemModelList.get(position).getProductTitle();
-        holder.setData(resource,title, rating);
+        holder.setData(resource, title, rating);
     }
 
     @Override
@@ -58,24 +58,25 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             rateNowContainer = itemView.findViewById(R.id.rate_now_container);
         }
 
-        private void setRating(int starPosition){
-            for(int x = 0; x < rateNowContainer.getChildCount();x++){
-                ImageView starBtn = (ImageView)rateNowContainer.getChildAt(x);
+        // Star rating is decided and shown
+        private void setRating(int starPosition) {
+            for (int x = 0; x < rateNowContainer.getChildCount(); x++) {
+                ImageView starBtn = (ImageView) rateNowContainer.getChildAt(x);
                 starBtn.setImageTintList(ColorStateList.valueOf(Color.parseColor("#bebebe")));
-                if(x <= starPosition){
+                if (x <= starPosition) {
                     starBtn.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffbb00")));
                 }
             }
 
         }
 
-        private void setData(int resource, String title, int rating){
+        private void setData(int resource, String title, int rating) {
             productImage.setImageResource(resource);
             productTitle.setText(title);
 
             // Rating Layout Starts
             setRating(rating);
-            for(int x = 0; x < rateNowContainer.getChildCount();x++){
+            for (int x = 0; x < rateNowContainer.getChildCount(); x++) {
                 final int starPosition = x;
                 rateNowContainer.getChildAt(x).setOnClickListener(new View.OnClickListener() {
                     @Override

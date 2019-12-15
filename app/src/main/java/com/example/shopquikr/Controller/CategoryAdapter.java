@@ -29,7 +29,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_item, viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -46,27 +46,28 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return categoryModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView categoryIcon;
         private TextView categoryName;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryIcon = itemView.findViewById(R.id.category_icon);
             categoryName = itemView.findViewById(R.id.category_name);
         }
 
-        private void setCategoryIcon(String iconUrl){
-            if(!iconUrl.equals("null")) {
+        private void setCategoryIcon(String iconUrl) {
+            if (!iconUrl.equals("null")) {
                 Glide.with(itemView.getContext()).load(iconUrl).apply(new RequestOptions().placeholder(R.mipmap.ic_home_24px)).into(categoryIcon);
             }
         }
 
-        private void setCategory(final String name, final int position){
+        private void setCategory(final String name, final int position) {
             categoryName.setText(name);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(position != 0) {
+                    if (position != 0) {
                         Intent categoryIntent = new Intent(itemView.getContext(), CategoryActivity.class);
                         categoryIntent.putExtra("CategoryName", name);
                         itemView.getContext().startActivity(categoryIntent);

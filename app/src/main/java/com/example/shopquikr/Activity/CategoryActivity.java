@@ -29,34 +29,33 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String title = getIntent().getStringExtra("CategoryName");
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         categoryRecyclerView = findViewById(R.id.catergory_recyclerview);
 
-        // Recycler View Testing Starts
+        // Recycler View Starts
         LinearLayoutManager testingLayoutManager = new LinearLayoutManager(this);
         testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         categoryRecyclerView.setLayoutManager(testingLayoutManager);
 
-        int listPosition =0;
-        for(int x = 0; x < loadedCategoriesNames.size(); x++){
-            if(loadedCategoriesNames.get(x).equals(title.toUpperCase())){
+        int listPosition = 0;
+        for (int x = 0; x < loadedCategoriesNames.size(); x++) {
+            if (loadedCategoriesNames.get(x).equals(title.toUpperCase())) {
                 listPosition = x;
             }
         }
-        if(listPosition ==0){
+        if (listPosition == 0) {
             loadedCategoriesNames.add(title.toUpperCase());
             lists.add(new ArrayList<HomePageModel>());
-            adapter = new HomePageAdapter(lists.get(loadedCategoriesNames.size()-1));
-            loadFragmentData(adapter,this,loadedCategoriesNames.size()-1,title);
-        }else{
+            adapter = new HomePageAdapter(lists.get(loadedCategoriesNames.size() - 1));
+            loadFragmentData(adapter, this, loadedCategoriesNames.size() - 1, title);
+        } else {
             adapter = new HomePageAdapter(lists.get(listPosition));
         }
-
-
+        // Recycler View Ends
         categoryRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -73,10 +72,10 @@ public class CategoryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-
+        // Checking for the option selected
         if (id == R.id.main_search_icon) {
             return true;
-        } else if(id == android.R.id.home){
+        } else if (id == android.R.id.home) {
             finish();
             return true;
         }

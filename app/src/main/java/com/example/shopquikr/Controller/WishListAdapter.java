@@ -48,7 +48,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         String productPrice = wishListModelList.get(position).getProductPrice();
         String cuttedPrice = wishListModelList.get(position).getCuttedPrice();
 
-        holder.setData(productId,resource,title,rating,totalRatings,productPrice,cuttedPrice, position);
+        holder.setData(productId, resource, title, rating, totalRatings, productPrice, cuttedPrice, position);
 
     }
 
@@ -80,20 +80,21 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
             deleteBtn = itemView.findViewById(R.id.delete_btn);
         }
 
-        private void setData(final String productId, String resource, String title, String averageRating, long totalRatingsNo, String price, String cuttedPriceValue, final int index){
+        private void setData(final String productId, String resource, String title, String averageRating, long totalRatingsNo, String price, String cuttedPriceValue, final int index) {
+            // Glide to show images
             Glide.with(itemView.getContext()).load(resource).apply(new RequestOptions().placeholder(R.mipmap.ic_home_24px)).into(productImage);
-            Log.i("resource : ",resource);
             productTitle.setText(title);
             rating.setText(averageRating);
-            totalRatings.setText("("+totalRatingsNo+") ratings");
-            productPrice.setText("$"+price);
-            cuttedPrice.setText("$"+cuttedPriceValue);
-            if(wishlist){
+            totalRatings.setText("(" + totalRatingsNo + ") ratings");
+            productPrice.setText("$" + price);
+            cuttedPrice.setText("$" + cuttedPriceValue);
+            // Showing the delete button when wishlist is true
+            if (wishlist) {
                 deleteBtn.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 deleteBtn.setVisibility(View.GONE);
             }
-            deleteBtn.setOnClickListener(new View.OnClickListener(){
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
@@ -101,14 +102,14 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
                         ProductDetailsActivity.running_wishlist_query = true;
                         DBQueries.removeFromWishList(index, itemView.getContext());
                     }
-                                    }
+                }
             });
-
+            // Navigate Product details acitivity upon clicking
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailsActivity.class);
-                    productDetailsIntent.putExtra("PRODUCT_ID",productId);
+                    productDetailsIntent.putExtra("PRODUCT_ID", productId);
                     itemView.getContext().startActivity(productDetailsIntent);
 
                 }

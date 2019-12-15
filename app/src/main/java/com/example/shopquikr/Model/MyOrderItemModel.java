@@ -9,7 +9,7 @@ public class MyOrderItemModel {
 
     public MyOrderItemModel(int productImage, int rating, String productTitle) {
         this.productImage = productImage;
-        this.rating=rating;
+        this.rating = rating;
         this.productTitle = productTitle;
     }
 

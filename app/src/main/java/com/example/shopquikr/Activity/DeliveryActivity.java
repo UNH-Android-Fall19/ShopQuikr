@@ -34,8 +34,6 @@ public class DeliveryActivity extends AppCompatActivity {
     private ImageButton continueShoppingBtn;
     private TextView orderId;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +45,12 @@ public class DeliveryActivity extends AppCompatActivity {
         continueShoppingBtn = findViewById(R.id.continue_shopping_btn);
         orderId = findViewById(R.id.order_id);
 
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("Delivery");
 
+        // Recycler starts
         deliveryRecyclerView = (RecyclerView) findViewById(R.id.delivery_recyclerview);
 
         changeOrAddNewAddressBtn = findViewById(R.id.change_or_add_address_btn);
@@ -62,65 +60,55 @@ public class DeliveryActivity extends AppCompatActivity {
         deliveryRecyclerView.setLayoutManager(layoutManager);
 
         List<CartItemModel> cartItemModelList = new ArrayList<>();
-        orderId.setText("Order ID : "+MainActivity.ORDER_ID++);
-        //orderConfirmationLayout.setVisibility(View.VISIBLE);
+        orderId.setText("Order ID : " + MainActivity.ORDER_ID++);
         CartAdapter cartAdapter = new CartAdapter(cartItemModelList, totalAmount);
         deliveryRecyclerView.setAdapter(cartAdapter);
         cartAdapter.notifyDataSetChanged();
-
+        // Recycler ends
         changeOrAddNewAddressBtn.setVisibility(View.VISIBLE);
 
         changeOrAddNewAddressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                Intent myAddressesIntent = new Intent(DeliveryActivity.this, MyAddressesActivity.class);
-                myAddressesIntent.putExtra("mode", SELECT_ADDRESS);
-                startActivity(myAddressesIntent);*/
             }
         });
 
-
-
+        // Upon clicking continue the order is confirmed
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-               // Intent deliveryIntent = new Intent(view.getContext(), OrderPlaced_k.class);
-               // view.getContext().startActivity(deliveryIntent);
-
-                if(MainActivity.mainActivity != null){
+                if (MainActivity.mainActivity != null) {
                     MainActivity.mainActivity.finish();
                     MainActivity.mainActivity = null;
                     MainActivity.showCart = false;
                 }
-                if(ProductDetailsActivity.productDetailsActivity != null){
+                if (ProductDetailsActivity.productDetailsActivity != null) {
                     ProductDetailsActivity.productDetailsActivity.finish();
                     ProductDetailsActivity.productDetailsActivity = null;
                 }
 
-                orderId.setText("Order ID : "+MainActivity.ORDER_ID++);
+                orderId.setText("Order ID : " + MainActivity.ORDER_ID++);
                 orderConfirmationLayout.setVisibility(View.VISIBLE);
 
 
             }
         });
-
+        // Upon clicking continueShoppingButton, navigated to Home screen
         continueShoppingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(MainActivity.mainActivity != null){
+                if (MainActivity.mainActivity != null) {
                     MainActivity.mainActivity.finish();
                     MainActivity.mainActivity = null;
                     MainActivity.showCart = false;
                 }
-                if(ProductDetailsActivity.productDetailsActivity != null){
+                if (ProductDetailsActivity.productDetailsActivity != null) {
                     ProductDetailsActivity.productDetailsActivity.finish();
                     ProductDetailsActivity.productDetailsActivity = null;
                 }
 
-                orderId.setText("Order ID : "+MainActivity.ORDER_ID++);
+                orderId.setText("Order ID : " + MainActivity.ORDER_ID++);
                 orderConfirmationLayout.setVisibility(View.VISIBLE);
                 DBQueries.clearData();
                 Intent homeIntent = new Intent(DeliveryActivity.this, MainActivity.class);
@@ -136,7 +124,7 @@ public class DeliveryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             finish();
             return true;
         }

@@ -13,19 +13,24 @@ public class HomePageModel {
 
     // Banner Slider starts
     private List<SliderModel> sliderModelList;
+
     public HomePageModel(int type, List<SliderModel> sliderModelList) {
         this.type = type;
         this.sliderModelList = sliderModelList;
     }
+
     public int getType() {
         return type;
     }
+
     public void setType(int type) {
         this.type = type;
     }
+
     public List<SliderModel> getSliderModelList() {
         return sliderModelList;
     }
+
     public void setSliderModelList(List<SliderModel> sliderModelList) {
         this.sliderModelList = sliderModelList;
     }
@@ -40,15 +45,19 @@ public class HomePageModel {
         this.resource = resource;
         this.backgroundColor = backgroundColor;
     }
+
     public String getResource() {
         return resource;
     }
+
     public void setResource(String resource) {
         this.resource = resource;
     }
+
     public String getBackgroundColor() {
         return backgroundColor;
     }
+
     public void setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
@@ -59,10 +68,11 @@ public class HomePageModel {
     private List<HorizontalProductScrollModel> horizontalProductScrollModelList;
     //Horizontal Product layout starts
     private List<WishListModel> viewAllProductList;
+
     public HomePageModel(int type, String title, String backgroundColor, List<HorizontalProductScrollModel> horizontalProductScrollModelList, List<WishListModel> viewAllProductList) {
         this.type = type;
         this.title = title;
-        this.backgroundColor=backgroundColor;
+        this.backgroundColor = backgroundColor;
         this.horizontalProductScrollModelList = horizontalProductScrollModelList;
         this.viewAllProductList = viewAllProductList;
     }
@@ -81,23 +91,26 @@ public class HomePageModel {
     public HomePageModel(int type, String title, String backgroundColor, List<HorizontalProductScrollModel> horizontalProductScrollModelList) {
         this.type = type;
         this.title = title;
-        this.backgroundColor=backgroundColor;
+        this.backgroundColor = backgroundColor;
         this.horizontalProductScrollModelList = horizontalProductScrollModelList;
     }
+
     // Grid Product Layout
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public List<HorizontalProductScrollModel> getHorizontalProductScrollModelList() {
         return horizontalProductScrollModelList;
     }
+
     public void setHorizontalProductScrollModelList(List<HorizontalProductScrollModel> horizontalProductScrollModelList) {
         this.horizontalProductScrollModelList = horizontalProductScrollModelList;
     }
-
 
 
 }

@@ -36,12 +36,12 @@ public class ResetPasswordFragment extends Fragment {
     public ResetPasswordFragment() {
         // Required empty public constructor
     }
+
     private EditText registeredEmail;
     private Button resetPasswordButton;
     private TextView goBack;
     private FrameLayout parentFrameLayout;
     private FirebaseAuth firebaseAuth;
-
 
 
     @Override
@@ -52,8 +52,8 @@ public class ResetPasswordFragment extends Fragment {
         parentFrameLayout = getActivity().findViewById(R.id.registerFrameLayout);
         registeredEmail = view.findViewById(R.id.forgotPasswordEmail);
         resetPasswordButton = view.findViewById(R.id.resetPasswordButton);
-        goBack= view.findViewById(R.id.forgotPasswordGoBack);
-        firebaseAuth=FirebaseAuth.getInstance();
+        goBack = view.findViewById(R.id.forgotPasswordGoBack);
+        firebaseAuth = FirebaseAuth.getInstance();
         return view;
     }
 
@@ -78,13 +78,13 @@ public class ResetPasswordFragment extends Fragment {
             }
         });
 
-        goBack.setOnClickListener(new View.OnClickListener(){
+        goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setFragment(new SigninFragment());
             }
         });
-
+        // Send an email if user forgets the password
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,9 +94,9 @@ public class ResetPasswordFragment extends Fragment {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Toast.makeText(getActivity(),"Email sent successfully",Toast.LENGTH_SHORT).show();
-                                }else{
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "Email sent successfully", Toast.LENGTH_SHORT).show();
+                                } else {
                                     String error = task.getException().getMessage();
                                     Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
                                 }
@@ -109,17 +109,19 @@ public class ResetPasswordFragment extends Fragment {
             }
         });
     }
-    private void checkInputs(){
-        if(TextUtils.isEmpty(registeredEmail.getText())){
+    // Validate the inputs
+    private void checkInputs() {
+        if (TextUtils.isEmpty(registeredEmail.getText())) {
             resetPasswordButton.setEnabled(false);
             resetPasswordButton.setTextColor(Color.LTGRAY);
-        }else{
+        } else {
             resetPasswordButton.setEnabled(true);
             resetPasswordButton.setTextColor(Color.BLACK);
         }
     }
-    private void setFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_from_left, R.anim.slideout_from_right);
         fragmentTransaction.replace(parentFrameLayout.getId(), fragment);
         fragmentTransaction.commit();

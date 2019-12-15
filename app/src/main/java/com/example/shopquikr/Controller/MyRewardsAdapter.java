@@ -24,7 +24,7 @@ public class MyRewardsAdapter extends RecyclerView.Adapter<MyRewardsAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rewards_item_layout,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rewards_item_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -54,7 +54,8 @@ public class MyRewardsAdapter extends RecyclerView.Adapter<MyRewardsAdapter.View
             couponBody = itemView.findViewById(R.id.coupon_body);
 
         }
-        private void setData(String title, String date, String body){
+
+        private void setData(String title, String date, String body) {
             couponTitle.setText(title);
             couponExpiryDate.setText(date);
             couponBody.setText(body);

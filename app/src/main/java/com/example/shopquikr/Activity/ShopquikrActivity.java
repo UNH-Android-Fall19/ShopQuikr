@@ -12,13 +12,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ShopquikrActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopquikr);
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        // Sleep is used to show the splash activity for that period of time
         SystemClock.sleep(3000);
-        Intent loginIntent=new Intent(ShopquikrActivity.this, RegisterActivity.class);
+        Intent loginIntent = new Intent(ShopquikrActivity.this, RegisterActivity.class);
         startActivity(loginIntent);
         finish();
     }

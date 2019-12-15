@@ -38,24 +38,18 @@ public class MyOrdersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_orders, container, false);
+        // Recylcer view starts
         myOrdersRecyclerView = view.findViewById(R.id.my_orders_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         myOrdersRecyclerView.setLayoutManager(layoutManager);
 
         List<MyOrderItemModel> myOrderItemModelList = new ArrayList<>();
-        myOrderItemModelList.add(new MyOrderItemModel(R.drawable.product_image,3,"Pixel 2XL(Black)"));
-        //myOrderItemModelList.add(new MyOrderItemModel(R.drawable.image2,1,"Pixel 2XL(Black)"));
-        //myOrderItemModelList.add(new MyOrderItemModel(R.drawable.product_image,2,"Pixel 2XL(Black)"));
-        //myOrderItemModelList.add(new MyOrderItemModel(R.drawable.image2,4,"Pixel 2XL(Black)"));
+        myOrderItemModelList.add(new MyOrderItemModel(R.drawable.product_image, 3, "Pixel 2XL(Black)"));
 
         MyOrderAdapter myOrderAdapter = new MyOrderAdapter(myOrderItemModelList);
         myOrdersRecyclerView.setAdapter(myOrderAdapter);
         myOrderAdapter.notifyDataSetChanged();
-
-
-
-
 
 
         return view;

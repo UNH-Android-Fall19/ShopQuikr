@@ -28,6 +28,7 @@ public class AddAddressActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         saveBtn = findViewById(R.id.save_btn);
+        // Upon clicking on save button will be navigated to Delivery page
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,13 +37,12 @@ public class AddAddressActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             finish();
             return true;
         }

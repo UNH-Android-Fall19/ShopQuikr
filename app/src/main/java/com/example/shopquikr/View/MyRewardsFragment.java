@@ -36,17 +36,13 @@ public class MyRewardsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_rewards, container, false);
+        // Recycler view starts
         rewardsRecyclerView = view.findViewById(R.id.my_rewards_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rewardsRecyclerView.setLayoutManager(layoutManager);
         List<RewardsModel> rewardsModelList = new ArrayList<>();
-        rewardsModelList.add(new RewardsModel("Cashback","till 2nd Nov 2019", "GET 20% cashback on any product above $200 and below $2000"));
-        //rewardsModelList.add(new RewardsModel("Cashback","till 2nd June 2016", "GET 20% cashback on any product above $200 and below $2000"));
-        //rewardsModelList.add(new RewardsModel("Cashback","till 2nd June 2016", "GET 20% cashback on any product above $200 and below $2000"));
-        //rewardsModelList.add(new RewardsModel("Cashback","till 2nd June 2016", "GET 20% cashback on any product above $200 and below $2000"));
-        //rewardsModelList.add(new RewardsModel("Cashback","till 2nd June 2016", "GET 20% cashback on any product above $200 and below $2000"));
-        //rewardsModelList.add(new RewardsModel("Cashback","till 2nd June 2016", "GET 20% cashback on any product above $200 and below $2000"));
+        rewardsModelList.add(new RewardsModel("Cashback", "till 2nd Nov 2019", "GET 20% cashback on any product above $200 and below $2000"));
 
         MyRewardsAdapter myRewardsAdapter = new MyRewardsAdapter(rewardsModelList);
         rewardsRecyclerView.setAdapter(myRewardsAdapter);

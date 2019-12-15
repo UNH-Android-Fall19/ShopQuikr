@@ -20,6 +20,7 @@ public class WishListModel {
         this.productPrice = productPrice;
         this.cuttedPrice = cuttedPrice;
     }
+
     public String getProductId() {
         return productId;
     }

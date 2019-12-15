@@ -55,7 +55,7 @@ public class SignUpFragment extends Fragment {
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFireStore;
-    private String emailPatternRegex="[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
+    private String emailPatternRegex = "[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -67,17 +67,17 @@ public class SignUpFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
-        parentFrameLayout=getActivity().findViewById(R.id.registerFrameLayout);
-        alreadyHaveAnAccount=view.findViewById(R.id.alreadyHaveAnAccount);
-        email=view.findViewById(R.id.signupEmailId);
-        fullName=view.findViewById(R.id.signupFullName);
-        password=view.findViewById(R.id.signupPassword);
-        confirmPassword=view.findViewById(R.id.signupConfirmPassword);
-        closeButton=view.findViewById(R.id.signupCloseButton);
-        signupButton=view.findViewById(R.id.signupButton);
-        progressBar=view.findViewById(R.id.signupProgressBar);
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseFireStore=FirebaseFirestore.getInstance();
+        parentFrameLayout = getActivity().findViewById(R.id.registerFrameLayout);
+        alreadyHaveAnAccount = view.findViewById(R.id.alreadyHaveAnAccount);
+        email = view.findViewById(R.id.signupEmailId);
+        fullName = view.findViewById(R.id.signupFullName);
+        password = view.findViewById(R.id.signupPassword);
+        confirmPassword = view.findViewById(R.id.signupConfirmPassword);
+        closeButton = view.findViewById(R.id.signupCloseButton);
+        signupButton = view.findViewById(R.id.signupButton);
+        progressBar = view.findViewById(R.id.signupProgressBar);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFireStore = FirebaseFirestore.getInstance();
 
         return view;
     }
@@ -163,76 +163,65 @@ public class SignUpFragment extends Fragment {
         });
     }
 
-    private void setFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_from_left, R.anim.slideout_from_right);
         fragmentTransaction.replace(parentFrameLayout.getId(), fragment);
         fragmentTransaction.commit();
     }
-    private void checkInputs(){
-        if (!TextUtils.isEmpty(email.getText())){
-            if(!TextUtils.isEmpty(fullName.getText())){
-                if(!TextUtils.isEmpty(password.getText()) && password.getText().toString().length()>=8) {
-                    if (!TextUtils.isEmpty(confirmPassword.getText())){
+    // Validate the input fields
+    private void checkInputs() {
+        if (!TextUtils.isEmpty(email.getText())) {
+            if (!TextUtils.isEmpty(fullName.getText())) {
+                if (!TextUtils.isEmpty(password.getText()) && password.getText().toString().length() >= 8) {
+                    if (!TextUtils.isEmpty(confirmPassword.getText())) {
                         signupButton.setEnabled(true);
-                        //signupButton.setTextColor(Color.argb(100,0,0,0));
                         signupButton.setTextColor(Color.BLACK);
-                    }
-                    else{
+                    } else {
                         signupButton.setEnabled(false);
-                        //signupButton.setTextColor(Color.argb(50,0, 0, 0));
                         signupButton.setTextColor(Color.LTGRAY);
                     }
-                }
-                else{
+                } else {
                     signupButton.setEnabled(false);
-                    //signupButton.setTextColor(Color.argb(50,0, 0, 0));
                     signupButton.setTextColor(Color.LTGRAY);
                 }
-            }
-            else{
+            } else {
                 signupButton.setEnabled(false);
-                //signupButton.setTextColor(Color.argb(50,0, 0, 0));
                 signupButton.setTextColor(Color.LTGRAY);
             }
-        } else{
+        } else {
             signupButton.setEnabled(false);
-            //signupButton.setTextColor(Color.argb(50,0, 0, 0));
             signupButton.setTextColor(Color.LTGRAY);
         }
     }
-    private void checkEmailAndPassword(){
-        if (email.getText().toString().matches(emailPatternRegex)){
-            if(password.getText().toString().equals(confirmPassword.getText().toString())){
+    // validate email and password and create database model for new user which would be helpful in further app usage
+    private void checkEmailAndPassword() {
+        if (email.getText().toString().matches(emailPatternRegex)) {
+            if (password.getText().toString().equals(confirmPassword.getText().toString())) {
                 progressBar.setVisibility(View.VISIBLE);
                 signupButton.setEnabled(false);
-                //signupButton.setTextColor(Color.argb(50,0, 0, 0));
                 signupButton.setTextColor(Color.LTGRAY);
                 firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Map<String, Object> customerData = new HashMap<>();
                             customerData.put("fullName", fullName.getText().toString());
                             firebaseFireStore.collection("USERS").document(firebaseAuth.getUid())
                                     .set(customerData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-
-
+                                    if (task.isSuccessful()) {
                                         CollectionReference userDataReference = firebaseFireStore.collection("USERS").document(firebaseAuth.getUid()).collection("USER_DATA");
+                                        Map<String, Object> wishlistMap = new HashMap<>();
+                                        wishlistMap.put("list_size", (long) 0);
 
+                                        Map<String, Object> ratingsMap = new HashMap<>();
+                                        ratingsMap.put("list_size", (long) 0);
 
-                                        Map<String,Object> wishlistMap = new HashMap<>();
-                                        wishlistMap.put("list_size", (long)0);
-
-                                        Map<String,Object> ratingsMap = new HashMap<>();
-                                        ratingsMap.put("list_size", (long)0);
-
-                                        Map<String,Object> cartMap = new HashMap<>();
-                                        cartMap.put("list_size", (long)0);
-
+                                        Map<String, Object> cartMap = new HashMap<>();
+                                        cartMap.put("list_size", (long) 0);
+                                        // Set the model for the customer with wish list, raitns and my cart model
                                         final List<String> documentNames = new ArrayList<>();
                                         documentNames.add("MY_WISHLIST");
                                         documentNames.add("MY_RATINGS");
@@ -243,21 +232,20 @@ public class SignUpFragment extends Fragment {
                                         documentFields.add(ratingsMap);
                                         documentFields.add(cartMap);
 
-                                        for (int x=0; x<documentNames.size();x++){
+                                        for (int x = 0; x < documentNames.size(); x++) {
                                             final int finalX = x;
                                             userDataReference.document(documentNames.get(x))
                                                     .set(documentFields.get(x)).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    if(task.isSuccessful()){
-                                                        if(finalX == documentNames.size()-1) {
+                                                    if (task.isSuccessful()) {
+                                                        if (finalX == documentNames.size() - 1) {
                                                             Intent mainIntent = new Intent(getActivity(), MainActivity.class);
                                                             startActivity(mainIntent);
                                                             getActivity().finish();
                                                         }
-                                                    }else{
+                                                    } else {
                                                         signupButton.setEnabled(true);
-                                                        //signupButton.setTextColor(Color.argb(100,0,0,0));
                                                         signupButton.setTextColor(Color.BLACK);
                                                         progressBar.setVisibility(View.INVISIBLE);
                                                         String error = task.getException().getMessage();
@@ -266,15 +254,14 @@ public class SignUpFragment extends Fragment {
                                                 }
                                             });
                                         }
-                                    }else{
+                                    } else {
                                         String error = task.getException().getMessage();
                                         Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                        }else{
+                        } else {
                             signupButton.setEnabled(true);
-                            //signupButton.setTextColor(Color.argb(100,0,0,0));
                             signupButton.setTextColor(Color.BLACK);
                             progressBar.setVisibility(View.INVISIBLE);
                             String error = task.getException().getMessage();
@@ -282,10 +269,10 @@ public class SignUpFragment extends Fragment {
                         }
                     }
                 });
-            }else{
+            } else {
                 confirmPassword.setError("Password doesn't match");
             }
-        }else{
+        } else {
             email.setError("Email ID not valid");
         }
     }

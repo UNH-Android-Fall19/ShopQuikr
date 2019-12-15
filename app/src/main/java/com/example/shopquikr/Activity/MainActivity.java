@@ -50,16 +50,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int ORDER_ID = 24567;
     public static Activity mainActivity;
     public static Boolean showCart = false;
-
-    //private static Fragment homeFragmentTesting;
     public static Fragment homeFragmentTesting = new HomeFragment();
-
     private AppBarConfiguration mAppBarConfiguration;
     private FrameLayout frameLayout;
     private ImageView noInternetConnection;
     private int currentFragment = -1;
     private NavigationView navigationView;
-
     private Window window;
     private Toolbar toolbar;
     public static FirebaseUser currentUser;
@@ -76,21 +72,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-
+        // Main layout starts
         frameLayout = findViewById(R.id.main_framelayout);
-            if (showCart) {
-                mainActivity = this;
-                drawer.setDrawerLockMode(1);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                gotoFragment("My Cart", new MyCartFragment(), -2);
-            } else {
-                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-                drawer.addDrawerListener(toggle);
-                toggle.syncState();
-                setFragment(new HomeFragment(), HOME_FRAGMENT);
+        if (showCart) {
+            mainActivity = this;
+            drawer.setDrawerLockMode(1);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            gotoFragment("My Cart", new MyCartFragment(), -2);
+        } else {
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+            setFragment(new HomeFragment(), HOME_FRAGMENT);
 
-            }
+        }
+        // Main layout ends
     }
 
     @Override
@@ -107,14 +104,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (currentFragment == HOME_FRAGMENT) {
-                currentFragment=-1;
+                currentFragment = -1;
                 super.onBackPressed();
             } else {
-                if(showCart){
+                if (showCart) {
                     mainActivity = null;
-                 showCart = false;
-                 finish();
-                }else {
+                    showCart = false;
+                    finish();
+                } else {
                     invalidateOptionsMenu();
                     setFragment(new HomeFragment(), HOME_FRAGMENT);
                     navigationView.getMenu().getItem(0).setChecked(true);
@@ -145,16 +142,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.main_cart_icon) {
             gotoFragment("My Cart", new MyCartFragment(), CART_FRAGMENT);
             return true;
-        }else if(id == android.R.id.home){
-            if(showCart){
+        } else if (id == android.R.id.home) {
+            if (showCart) {
                 mainActivity = null;
                 showCart = false;
                 finish();
                 return true;
             }
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -170,10 +165,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        // Navigation Bar action decides where to navigate
         if (id == R.id.nav_shop_quikr) {
             invalidateOptionsMenu();
             setFragment(homeFragmentTesting, HOME_FRAGMENT);
-            //setFragment(new HomeFragment(), HOME_FRAGMENT);
         } else if (id == R.id.nav_my_orders) {
             gotoFragment("My Orders", new MyOrdersFragment(), ORDERS_FRAGMENT);
         } else if (id == R.id.nav_my_rewards) {
@@ -183,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_my_wishlist) {
             gotoFragment("My Wishlist", new MyWishListFragment(), WISHLIST_FRAGMENT);
         } else if (id == R.id.nav_my_account) {
-            gotoFragment("MyAccount",new MyAccountFragment(), ACCOUNT_FRAGMENT);
+            gotoFragment("MyAccount", new MyAccountFragment(), ACCOUNT_FRAGMENT);
         } else if (id == R.id.nav_sign_out) {
             FirebaseAuth.getInstance().signOut();
             DBQueries.clearData();

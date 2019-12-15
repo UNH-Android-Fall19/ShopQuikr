@@ -23,6 +23,7 @@ public class HorizontalProductScrollModel {
     public void setProductID(String productID) {
         this.productID = productID;
     }
+
     public String getProductImage() {
         return productImage;
     }

@@ -42,14 +42,14 @@ public class HorizontalProductScrollAdapter extends RecyclerView.Adapter<Horizon
         String productId = horizontalProductScrollModelList.get(position).getProductID();
 
 
-        viewHolder.setData(productId,resource,title,description,price);
+        viewHolder.setData(productId, resource, title, description, price);
     }
 
     @Override
     public int getItemCount() {
-        if(horizontalProductScrollModelList.size() > 8){
+        if (horizontalProductScrollModelList.size() > 8) {
             return 8;
-        }else {
+        } else {
             return horizontalProductScrollModelList.size();
         }
     }
@@ -71,36 +71,23 @@ public class HorizontalProductScrollAdapter extends RecyclerView.Adapter<Horizon
 
 
         }
-
-        private void setData(final String productId, String resource, String title, String description, String price){
+        // Data set with Glide and to the product details
+        private void setData(final String productId, String resource, String title, String description, String price) {
             Glide.with(itemView.getContext()).load(resource).apply(new RequestOptions().placeholder(R.mipmap.ic_home_24px)).into(productImage);
-            productPrice.setText("$"+price);
+            productPrice.setText("$" + price);
             productDescription.setText(description);
             productTitle.setText(title);
-            itemView.setOnClickListener(new View.OnClickListener(){
+            // Navigated to product details page upon clicking on the image
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailsActivity.class);
-                    productDetailsIntent.putExtra("PRODUCT_ID",productId);
+                    productDetailsIntent.putExtra("PRODUCT_ID", productId);
                     itemView.getContext().startActivity(productDetailsIntent);
                 }
             });
 
         }
-/*
-        private void setProductImage(String resource){
-            Glide.with(itemView.getContext()).load(resource).apply(new RequestOptions().placeholder(R.mipmap.ic_home_24px)).into(productImage);
-        }
-        private void setProductTitle(String title){
-            productTitle.setText(title);
-        }
-        private void setProductDescription(String description){
-            productDescription.setText(description);
-        }
-        private void setProductPrice(String price){
-            productPrice.setText("$"+price);
-        }
-*/
 
     }
 }

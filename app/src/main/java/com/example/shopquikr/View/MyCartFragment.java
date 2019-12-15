@@ -39,6 +39,7 @@ public class MyCartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_cart, container, false);
+        // Recycler View starts
         cartItemsRecyclerView = view.findViewById(R.id.cart_items_recyclerview);
         continueBtn = view.findViewById(R.id.cart_continue_btn);
         totalAmount = view.findViewById(R.id.total_cart_amount);
@@ -46,15 +47,15 @@ public class MyCartFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         cartItemsRecyclerView.setLayoutManager(layoutManager);
 
-        if(DBQueries.cartItemModelList.size() == 0){
+        if (DBQueries.cartItemModelList.size() == 0) {
             DBQueries.cartList.clear();
-            DBQueries.loadCartList(getContext(),true);
+            DBQueries.loadCartList(getContext(), true);
         }
 
         cartAdapter = new CartAdapter(DBQueries.cartItemModelList, totalAmount);
         cartItemsRecyclerView.setAdapter(cartAdapter);
         cartAdapter.notifyDataSetChanged();
-
+        // navigated to Add address upon clicking continue button
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -25,14 +25,15 @@ public class ProductImagesAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView productImage = new ImageView(container.getContext());
+        // Glide will show the default placeholder incase the image is not laoded from database, it is fail safe making sure that app wont crash
         Glide.with(container.getContext()).load(productImages.get(position)).apply(new RequestOptions().placeholder(R.mipmap.ic_home_24px)).into(productImage);
-        container.addView(productImage,0);
+        container.addView(productImage, 0);
         return productImage;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((ImageView)object);
+        container.removeView((ImageView) object);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class ProductImagesAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view==object;
+        return view == object;
     }
 }
 

@@ -10,7 +10,7 @@ public class AddressesModel {
         this.fullname = fullname;
         this.address = address;
         this.zipcode = zipcode;
-        this.selected=selected;
+        this.selected = selected;
     }
 
     public String getFullname() {
@@ -36,6 +36,7 @@ public class AddressesModel {
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
+
     public Boolean getSelected() {
         return selected;
     }

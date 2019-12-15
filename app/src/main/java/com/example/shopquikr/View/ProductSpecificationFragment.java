@@ -36,21 +36,11 @@ public class ProductSpecificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_specification, container, false);
+        // Recycler view starts
         productSpecificationRecyclerView = view.findViewById(R.id.product_specification_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         productSpecificationRecyclerView.setLayoutManager(linearLayoutManager);
-
-
-        /*
-        productSpecificationModelList.add(new ProductSpecificationModel(0,"Technical"));
-        productSpecificationModelList.add(new ProductSpecificationModel(1,"RAM","2GB"));
-        productSpecificationModelList.add(new ProductSpecificationModel(1,"RAM","2GB"));
-        productSpecificationModelList.add(new ProductSpecificationModel(1,"ROM","32GB"));
-        productSpecificationModelList.add(new ProductSpecificationModel(1,"ROM","32GB"));
-*/
-
-
         ProductSpecificationAdapter productSpecificationAdapter = new ProductSpecificationAdapter(productSpecificationModelList);
         productSpecificationRecyclerView.setAdapter(productSpecificationAdapter);
         productSpecificationAdapter.notifyDataSetChanged();
